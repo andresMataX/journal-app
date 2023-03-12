@@ -14,6 +14,7 @@ import {
   startUploadingFiles,
 } from '../../store/journal'
 import { DeleteOutline, UploadOutlined } from '@mui/icons-material'
+import moment from 'moment'
 
 interface Props {}
 
@@ -51,7 +52,7 @@ export const NoteView = ({}: Props) => {
   const dateString = useMemo(() => {
     const newDate = new Date(note!.date)
 
-    return newDate.toUTCString()
+    return moment(newDate).format('LLL')
   }, [note!.date])
 
   const onSaveNote: SubmitHandler<FormData> = (data) => {
