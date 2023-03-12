@@ -8,6 +8,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { ImageGallery } from '../components'
 import { useAppDispatch, useAppSelector } from '../../store'
 import {
+  setActiveNote,
   startDeletingNote,
   startSaveNote,
   startUploadingFiles,
@@ -30,7 +31,7 @@ export const NoteView = ({}: Props) => {
     isSaving,
   } = useAppSelector((state) => state.journal)
 
-  const { register, handleSubmit, reset } = useForm<FormData>()
+  const { register, handleSubmit, reset, getValues } = useForm<FormData>()
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -58,8 +59,19 @@ export const NoteView = ({}: Props) => {
   }
 
   const onFileInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    const { body, title } = getValues()
+
     if (target.files?.length === 0) return
 
+    dispatch(
+      setActiveNote({
+        id: note!.id,
+        body,
+        title,
+        date: note!.date,
+        imageUrls: note!.imageUrls,
+      })
+    )
     dispatch(startUploadingFiles(target.files!))
   }
 

@@ -60,7 +60,7 @@ export const startSaveNote = (body: string, title: string) => {
       body,
       title,
       date: active!.date,
-      imageUrls: active?.imageUrls,
+      imageUrls: active?.imageUrls || [],
     }
 
     const docRef = doc(FirebaseDB, `${uid}/journal/notes/${noteToFireStore.id}`)
