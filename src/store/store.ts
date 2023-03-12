@@ -8,6 +8,7 @@ export const store = configureStore({
     auth: authSlice.reducer,
     journal: journalSlice.reducer,
   },
+  devTools: false,
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
